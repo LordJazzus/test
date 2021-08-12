@@ -30,13 +30,16 @@ struct MainMenu: View {
     @State private var numbersOfColumns = 3
     
     
+    
     var body: some View {
-        
+        LinearGradient(gradient: Gradient(colors: [.purple, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all)
+            
         let columns = Array(
             repeating: GridItem(.flexible(), spacing: spacing),
             count: numbersOfColumns)
         
-        ScrollView {
+        VStack {
             HStack {
             personView
             
@@ -44,13 +47,12 @@ struct MainMenu: View {
             }
             LazyVGrid(columns: columns, spacing: spacing)   {
                 ForEach(items) { item in
-                    ItemView(item: item )
+                    NavigationLink(destination: Text(item.navMenu)) {
+                        ItemView(item: item )
                 }
             }
-            .padding(.horizontal)
         }
-        .background(Color.blue)
-        .ignoresSafeArea()
+        .navigationTitle("")
     }
     
     var personView: some View {
@@ -85,10 +87,6 @@ struct MainMenu: View {
         .frame(maxWidth: .infinity)
         .background(Color.blue)
     }
-    
-    
-    
-    
 }
 
 
